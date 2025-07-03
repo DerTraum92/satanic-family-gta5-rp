@@ -45,12 +45,17 @@ function displayApplications(filteredApplications) {
 
     row.innerHTML = `
       <td class="p-2 border border-white">${application.date}</td>
-      <td class="p-2 border border-white">${application.discord}</td>
+      <td class="p-2 border border-white">${application.nickname}</td>
       <td class="p-2 border border-white">${application.department}</td>
       <td class="p-2 border border-white">${application.discord}</td>
-      <td class="p-2 border border-white">
-        <input type="text" class="bg-transparent border border-white p-1 w-full text-white" placeholder="Комментарий..." value="${application.comment}" />
-      </td>
+      <td class="p-2 border border-white">${application.comment || 'Нет комментария'}</td>
+      <td class="p-2 border border-white">${application.url || 'Не указано'}</td> <!-- Ссылка на откат -->
+      <td class="p-2 border border-white">${application.realName || 'Не указано'}</td> <!-- Реальное имя -->
+      <td class="p-2 border border-white">${application.age || 'Не указано'}</td> <!-- Возраст -->
+      <td class="p-2 border border-white">${application.timezone || 'Не указано'}</td> <!-- Часовой пояс -->
+      <td class="p-2 border border-white">${application.experience || 'Не указано'}</td> <!-- Опыт игры -->
+      <td class="p-2 border border-white">${application.previousFamilies || 'Не указано'}</td> <!-- В каких семьях был -->
+      <td class="p-2 border border-white">${application.discordForContact || 'Не указано'}</td> <!-- Discord для связи -->
       <td class="p-2 border border-white flex gap-2">
         <button class="bg-green-700 px-2 py-1 rounded hover:bg-green-600" onclick="acceptApplication('${application._id}')">
           Принять
@@ -62,26 +67,6 @@ function displayApplications(filteredApplications) {
     `;
 
     requestList.appendChild(row);
-  });
-}
-
-// Фильтрация заявок
-function filterApplications() {
-  const searchNick = document.getElementById("search-nick").value.toLowerCase();
-  const filterDepartment = document.getElementById("filter-department").value;
-  const filterDate = document.getElementById("filter-date").value;
-
-  // Загружаем заявки и фильтруем их
-  fetchApplications().then(applications => {
-    const filteredApplications = applications.filter((application) => {
-      const matchesNick = application.discord.toLowerCase().includes(searchNick);
-      const matchesDepartment = filterDepartment ? application.department === filterDepartment : true;
-      const matchesDate = filterDate ? application.date === filterDate : true;
-
-      return matchesNick && matchesDepartment && matchesDate;
-    });
-
-    displayApplications(filteredApplications); // Отображаем отфильтрованные заявки
   });
 }
 

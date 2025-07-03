@@ -38,13 +38,21 @@ const applicationSchema = new mongoose.Schema({
   department: String,
   status: { type: String, default: 'Ожидает' },
   date: { type: Date, default: Date.now },
-  comment: String
+  comment: String,
+  url: String, // ссылка на откат
+  realName: String, // реальное имя
+  nickname: String, // игровой ник
+  age: Number, // возраст
+  timezone: String, // часовой пояс
+  experience: String, // опыт игры
+  previousFamilies: String, // в каких семьях был
+  discordForContact: String // Discord для связи
 });
 
 const Application = mongoose.model('Application', applicationSchema);
 
 // Простая проверка на админа
-const admin = { username: 'admin', password: 'password' }; // Для простоты
+const admin = { username: 'nanami', password: 'ds311002' }; // Для простоты
 
 // API для получения заявок
 app.get('/api/get-applications', async (req, res) => {
@@ -58,12 +66,22 @@ app.get('/api/get-applications', async (req, res) => {
 
 // API для отправки заявки
 app.post('/api/submit-application', async (req, res) => {
-  const { discord, department, comment } = req.body;
+  const { discord, department, comment, url, realName, nickname, age, timezone, experience, previousFamilies, discordForContact } = req.body;
+
   const newApplication = new Application({
     discord,
     department,
-    comment
+    comment,
+    url,
+    realName,
+    nickname,
+    age,
+    timezone,
+    experience,
+    previousFamilies,
+    discordForContact
   });
+
   try {
     await newApplication.save();
     res.status(200).send('Заявка успешно отправлена');
