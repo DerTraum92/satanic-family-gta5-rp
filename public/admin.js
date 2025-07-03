@@ -1,7 +1,7 @@
-// Загружаем заявки с Netlify Functions
+// Загружаем заявки с сервера Render
 async function fetchApplications() {
   try {
-    const response = await fetch('/.netlify/functions/getApplications');  // Используем серверless функцию Netlify
+    const response = await fetch('https://satanic-family-gta5-rp.onrender.com/api/get-applications');  // API на Render
     if (response.ok) {
       const data = await response.json(); // Получаем данные с сервера в формате JSON
       displayApplications(data); // Отображаем заявки
@@ -13,6 +13,7 @@ async function fetchApplications() {
   }
 }
 
+// Логика авторизации
 document.getElementById("loginForm").addEventListener("submit", function(event) {
   event.preventDefault();
 
@@ -23,6 +24,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     // Переход в админ-панель
     document.getElementById("login").style.display = "none"; // скрываем форму
     document.getElementById("adminPanel").style.display = "block"; // показываем админ панель
+    fetchApplications();  // Загружаем заявки
   } else {
     alert("Неверный логин или пароль!");
   }
@@ -46,10 +48,10 @@ function displayApplications(filteredApplications) {
         <input type="text" class="bg-transparent border border-white p-1 w-full text-white" placeholder="Комментарий..." value="${application.comment}" />
       </td>
       <td class="p-2 border border-white flex gap-2">
-        <button class="bg-green-700 px-2 py-1 rounded hover:bg-green-600" onclick="acceptApplication(${application.id})">
+        <button class="bg-green-700 px-2 py-1 rounded hover:bg-green-600" onclick="acceptApplication('${application._id}')">
           Принять
         </button>
-        <button class="bg-red-700 px-2 py-1 rounded hover:bg-red-600" onclick="rejectApplication(${application.id})">
+        <button class="bg-red-700 px-2 py-1 rounded hover:bg-red-600" onclick="rejectApplication('${application._id}')">
           Отклонить
         </button>
       </td>
@@ -81,48 +83,31 @@ function filterApplications() {
 
 // Принять заявку
 async function acceptApplication(id) {
-  // Получаем заявку
-  const application = await getApplicationById(id);
-  if (application) {
-    application.status = "Принято";  // Изменяем статус заявки
-    await updateApplicationStatus(application);  // Обновляем статус на сервере
+  const response = await fetch(`https://satanic-family-gta5-rp.onrender.com/api/update-application/${id}`, { 
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status: 'Принято' }),
+  });
+  if (response.ok) {
+    alert("Заявка принята");
     fetchApplications();  // Перезагружаем заявки
   }
 }
 
 // Отклонить заявку
 async function rejectApplication(id) {
-  // Получаем заявку
-  const application = await getApplicationById(id);
-  if (application) {
-    application.status = "Отклонено";  // Изменяем статус заявки
-    await updateApplicationStatus(application);  // Обновляем статус на сервере
+  const response = await fetch(`https://satanic-family-gta5-rp.onrender.com/api/update-application/${id}`, { 
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status: 'Отклонено' }),
+  });
+  if (response.ok) {
+    alert("Заявка отклонена");
     fetchApplications();  // Перезагружаем заявки
-  }
-}
-
-// Функция для получения заявки по ID
-async function getApplicationById(id) {
-  const applications = await fetchApplications();
-  return applications.find(application => application.id === id);
-}
-
-// Функция для обновления статуса заявки
-async function updateApplicationStatus(application) {
-  try {
-    const response = await fetch(`/api/update-application/${application.id}`, {  // Здесь будет URL серверной функции
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(application),
-    });
-
-    if (!response.ok) {
-      console.error('Не удалось обновить статус заявки');
-    }
-  } catch (error) {
-    console.error('Ошибка при обновлении статуса заявки', error);
   }
 }
 
