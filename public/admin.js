@@ -45,9 +45,9 @@ function displayApplications(filteredApplications) {
 
     row.innerHTML = `
       <td class="p-2 border border-white">${application.date}</td>
-      <td class="p-2 border border-white">${application.nickname}</td>
-      <td class="p-2 border border-white">${application.department}</td>
-      <td class="p-2 border border-white">${application.discord}</td>
+      <td class="p-2 border border-white">${application.nickname || 'Не указано'}</td>
+      <td class="p-2 border border-white">${application.department || 'Не указано'}</td>
+      <td class="p-2 border border-white">${application.discord || 'Не указано'}</td>
       <td class="p-2 border border-white">${application.comment || 'Нет комментария'}</td>
       <td class="p-2 border border-white">${application.url || 'Не указано'}</td> <!-- Ссылка на откат -->
       <td class="p-2 border border-white">${application.realName || 'Не указано'}</td> <!-- Реальное имя -->
@@ -72,31 +72,35 @@ function displayApplications(filteredApplications) {
 
 // Принять заявку
 async function acceptApplication(id) {
-  const response = await fetch(`https://satanic-family-gta5-rp.onrender.com/api/update-application/${id}`, { 
+  const response = await fetch(`https://satanic-family-gta5-rp.onrender.com/api/accept-application/${id}`, { 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ status: 'Принято' }),
+    }
   });
+
   if (response.ok) {
     alert("Заявка принята");
     fetchApplications();  // Перезагружаем заявки
+  } else {
+    alert("Ошибка при принятии заявки");
   }
 }
 
 // Отклонить заявку
 async function rejectApplication(id) {
-  const response = await fetch(`https://satanic-family-gta5-rp.onrender.com/api/update-application/${id}`, { 
+  const response = await fetch(`https://satanic-family-gta5-rp.onrender.com/api/reject-application/${id}`, { 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ status: 'Отклонено' }),
+    }
   });
+
   if (response.ok) {
     alert("Заявка отклонена");
     fetchApplications();  // Перезагружаем заявки
+  } else {
+    alert("Ошибка при отклонении заявки");
   }
 }
 
