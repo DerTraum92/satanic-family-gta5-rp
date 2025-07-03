@@ -54,9 +54,9 @@
     </section>
 
     <!-- Форма подачи заявки -->
-    <section id="apply">
+    <section id="apply" class="content-box">
       <h2>Подать заявку</h2>
-      <form action="submit_form.php" method="POST">
+      <form id="applicationForm">
         <label for="department">Выберите отдел:</label>
         <select id="department" name="department" required>
           <option value="">--Выберите--</option>
@@ -93,7 +93,7 @@
     </section>
 
     <!-- Участники -->
-    <section id="members">
+    <section id="members" class="content-box">
       <h2>Участники</h2>
       <div class="member-list">
         <div class="member">
@@ -117,14 +117,83 @@
 
     <!-- Эффект лилий -->
     <script>
-      document.addEventListener("mousemove", function (e) {
-        const lily = document.createElement("div");
-        lily.className = "lily";
-        lily.style.left = e.pageX + "px";
-        lily.style.top = e.pageY + "px";
-        document.body.appendChild(lily);
-        setTimeout(() => lily.remove(), 1000);
+      // Функция для отправки заявки
+      document.getElementById("applicationForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        const application = {
+          discord: formData.get("discord"),
+          department: formData.get("department"),
+          comment: formData.get("comment"),
+        };
+
+        // Отправка данных на сервер
+        try {
+          const response = await fetch("/api/submit-application", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(application),
+          });
+
+          if (response.ok) {
+            alert("Заявка успешно отправлена!");
+          } else {
+            alert("Ошибка при отправке заявки");
+          }
+        } catch (error) {
+          console.error("Ошибка:", error);
+          alert("Ошибка при отправке заявки");
+        }
       });
+
+      // Функция для получения заявок в админке
+      async function fetchApplications() {
+        const response = await fetch("/api/get-applications");
+        const applications = await response.json();
+        const requestList = document.getElementById("requestList");
+        
+        requestList.innerHTML = ""; // Очищаем текущий список заявок
+
+        applications.forEach((application) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${application.date}</td>
+            <td>${application.discord}</td>
+            <td>${application.department}</td>
+            <td>${application.status}</td>
+            <td>
+              <button onclick="acceptApplication('${application._id}')">Принять</button>
+              <button onclick="rejectApplication('${application._id}')">Отклонить</button>
+            </td>
+          `;
+          requestList.appendChild(row);
+        });
+      }
+
+      // Функция для принятия заявки
+      async function acceptApplication(id) {
+        const response = await fetch(`/api/accept-application/${id}`, { method: 'POST' });
+        if (response.ok) {
+          alert("Заявка принята");
+          fetchApplications();
+        }
+      }
+
+      // Функция для отклонения заявки
+      async function rejectApplication(id) {
+        const response = await fetch(`/api/reject-application/${id}`, { method: 'POST' });
+        if (response.ok) {
+          alert("Заявка отклонена");
+          fetchApplications();
+        }
+      }
+
+      // Загрузка заявок при загрузке страницы
+      fetchApplications();
     </script>
 
   </body>

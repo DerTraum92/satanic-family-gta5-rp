@@ -1,13 +1,18 @@
-import express from 'express';  // Используем import вместо require
+// Подключаем необходимые библиотеки
+import express from 'express';  // Используем ES-модули, так как у вас указан "type": "module"
 import mongoose from 'mongoose'; 
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+// Инициализируем приложение Express
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Подключение к базе данных MongoDB
-mongoose.connect('YOUR_MONGODB_CONNECTION_STRING', {
+// Строка подключения к MongoDB
+const mongoURI = 'mongodb+srv://arise:ScnHloRBNe6Nu3gq@cluster0.yn96q1u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
+// Подключаемся к MongoDB
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -16,7 +21,7 @@ mongoose.connect('YOUR_MONGODB_CONNECTION_STRING', {
   console.log('MongoDB connection error: ', err);
 });
 
-// Использование CORS и body-parser
+// Используем body-parser и CORS
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -29,6 +34,7 @@ const applicationSchema = new mongoose.Schema({
   comment: String
 });
 
+// Модель для заявок
 const Application = mongoose.model('Application', applicationSchema);
 
 // API для получения заявок
