@@ -1,7 +1,8 @@
-import express from 'express';  // Используем ES-модули
+import express from 'express';  
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import path from 'path';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,6 +23,9 @@ mongoose.connect(mongoURI, {
 // Используем body-parser и CORS
 app.use(cors());
 app.use(bodyParser.json());
+
+// Отдача статических файлов
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Схема для заявки
 const applicationSchema = new mongoose.Schema({
@@ -96,6 +100,11 @@ app.post('/api/reject-application/:id', async (req, res) => {
   } catch (error) {
     res.status(500).send("Ошибка при отклонении заявки");
   }
+});
+
+// Отдача главной страницы
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Старт сервера
