@@ -27,7 +27,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
   if (username === adminUsername && password === adminPassword) {
     // Переход в админ-панель
     document.getElementById("login").style.display = "none"; // скрываем форму
-    document.getElementById("adminPanel").style.display = "block"; // показываем админ панель
+    document.getElementById("request").style.display = "block"; // показываем админ панель
     fetchApplications();  // Загружаем заявки
   } else {
     alert("Неверный логин или пароль!");
