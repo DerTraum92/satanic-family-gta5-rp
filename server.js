@@ -1,10 +1,8 @@
-// Подключаем необходимые библиотеки
-import express from 'express';  // Используем ES-модули, так как у вас указан "type": "module"
-import mongoose from 'mongoose'; 
+import express from 'express';  // Используем ES-модули
+import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-// Инициализируем приложение Express
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -34,8 +32,10 @@ const applicationSchema = new mongoose.Schema({
   comment: String
 });
 
-// Модель для заявок
 const Application = mongoose.model('Application', applicationSchema);
+
+// Простая проверка на админа
+const admin = { username: 'admin', password: 'password' }; // Для простоты
 
 // API для получения заявок
 app.get('/api/get-applications', async (req, res) => {
@@ -60,6 +60,41 @@ app.post('/api/submit-application', async (req, res) => {
     res.status(200).send('Заявка успешно отправлена');
   } catch (error) {
     res.status(500).send('Ошибка при отправке заявки');
+  }
+});
+
+// API для авторизации
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === admin.username && password === admin.password) {
+    res.status(200).send('Авторизация прошла успешно');
+  } else {
+    res.status(401).send('Неверные данные');
+  }
+});
+
+// Маршрут для принятия заявки
+app.post('/api/accept-application/:id', async (req, res) => {
+  try {
+    const application = await Application.findById(req.params.id);
+    application.status = "Принято";
+    await application.save();
+    res.send("Заявка принята");
+  } catch (error) {
+    res.status(500).send("Ошибка при принятии заявки");
+  }
+});
+
+// Маршрут для отклонения заявки
+app.post('/api/reject-application/:id', async (req, res) => {
+  try {
+    const application = await Application.findById(req.params.id);
+    application.status = "Отклонено";
+    await application.save();
+    res.send("Заявка отклонена");
+  } catch (error) {
+    res.status(500).send("Ошибка при отклонении заявки");
   }
 });
 

@@ -17,18 +17,20 @@
       </nav>
     </header>
 
+    <!-- Форма логина -->
     <section id="login">
-    <h2>Введите логин и пароль</h2>
-    <form id="loginForm">
-        <label for="username">Логин:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Войти</button>
-    </form>
-</section>
+      <h2>Введите логин и пароль</h2>
+      <form id="loginForm">
+          <label for="username">Логин:</label>
+          <input type="text" id="username" name="username" required>
+          <label for="password">Пароль:</label>
+          <input type="password" id="password" name="password" required>
+          <button type="submit">Войти</button>
+      </form>
+    </section>
 
-    <section id="request" class="p-6 max-w-7xl mx-auto">
+    <!-- Секция для заявок (только для админа) -->
+    <section id="request" class="p-6 max-w-7xl mx-auto" style="display: none;">
       <h1 class="text-4xl font-bold mb-6 border-b-2 border-white pb-2">Заявки на вступление</h1>
       <div class="flex flex-wrap gap-4 mb-6">
         <input
@@ -73,12 +75,7 @@
     <footer class="bg-gray-900 mt-10 p-4 text-center border-t border-white">
       <p>
         Свяжитесь с нами через Discord:
-        <a
-          href="https://discord.gg/satanicfamq"
-          target="_blank"
-          class="underline text-purple-400"
-          >discord.gg/satanicfamq</a
-        >
+        <a href="https://discord.gg/satanicfamq" target="_blank" class="underline text-purple-400">discord.gg/satanicfamq</a>
       </p>
     </footer>
 
