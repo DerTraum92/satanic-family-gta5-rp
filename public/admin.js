@@ -20,7 +20,11 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  if (username === "satanic" && password === "tech") {
+  // Новые логин и пароль
+  const adminUsername = "nanami";  // Новый логин
+  const adminPassword = "ds311002";  // Новый пароль
+
+  if (username === adminUsername && password === adminPassword) {
     // Переход в админ-панель
     document.getElementById("login").style.display = "none"; // скрываем форму
     document.getElementById("adminPanel").style.display = "block"; // показываем админ панель
