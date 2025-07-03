@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админ-панель | Satanic Family</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-black text-white font-sans">
+    <header class="bg-gray-900 p-4 border-b border-white">
+      <nav class="max-w-7xl mx-auto flex justify-between items-center">
+        <ul class="flex gap-6">
+          <li><a href="index.html" class="hover:underline">На главную</a></li>
+          <li><a href="#request" class="hover:underline">Заявки</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="request" class="p-6 max-w-7xl mx-auto">
+      <h1 class="text-4xl font-bold mb-6 border-b-2 border-white pb-2">Заявки на вступление</h1>
+      <div class="flex flex-wrap gap-4 mb-6">
+        <input
+          type="text"
+          id="search-nick"
+          placeholder="Поиск по нику"
+          class="bg-gray-800 text-white p-2 rounded border border-white"
+        />
+        <select
+          id="filter-department"
+          class="bg-gray-800 text-white p-2 rounded border border-white"
+        >
+          <option value="">Все отделы</option>
+          <option value="тул">Тул</option>
+          <option value="фарм">Фарм</option>
+        </select>
+        <input
+          type="date"
+          id="filter-date"
+          class="bg-gray-800 text-white p-2 rounded border border-white"
+        />
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border border-white">
+          <thead class="bg-gray-800">
+            <tr>
+              <th class="p-2 border border-white">Дата</th>
+              <th class="p-2 border border-white">Ник</th>
+              <th class="p-2 border border-white">Отдел</th>
+              <th class="p-2 border border-white">Discord</th>
+              <th class="p-2 border border-white">Комментарий</th>
+              <th class="p-2 border border-white">Действия</th>
+            </tr>
+          </thead>
+          <tbody id="requestList">
+            <!-- Заявки будут добавляться через JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="bg-gray-900 mt-10 p-4 text-center border-t border-white">
+      <p>
+        Свяжитесь с нами через Discord:
+        <a
+          href="https://discord.gg/satanicfamq"
+          target="_blank"
+          class="underline text-purple-400"
+          >discord.gg/satanicfamq</a
+        >
+      </p>
+    </footer>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

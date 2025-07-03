@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    background-color: #000;
+    color: #fff;
+    line-height: 1.6;
+    background-image: url('images/arise.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Навигация */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Главный блок */
+#home {
+    text-align: center;
+    margin-top: 50px;
+}
+
+h1, h2 {
+    font-family: 'UnifrakturCook', cursive;
+    text-align: center;
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 2px 2px 4px #000;
+}
+
+/* Форма подачи заявки */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #222;
+    backdrop-filter: blur(4px);
+}
+
+form::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    background: url('images/thorned_spider_lilies_frame.png') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+    border-radius: 15px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #c2185b;
+}
+
+/* Участники */
+#members {
+    padding: 40px 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-top: 2px solid #444;
+    border-bottom: 2px solid #444;
+}
+
+.member-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.member {
+    background-color: rgba(20, 20, 20, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #555;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.member:hover {
+    transform: scale(1.05);
+}
+
+.member h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #d32f2f;
+}
+
+.member p {
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    body {
+        background-size: cover;
+    }
+
+    h1, h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    form {
+        width: 90%;
+        padding: 10px;
+    }
+
+    input, select, textarea, button {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+        text-align: center;
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 12px;
+    }
+}
+
+/* Адаптив для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+    h1, h2 {
+        font-size: 2.5rem;
+    }
+
+    form {
+        width: 80%;
+    }
+}

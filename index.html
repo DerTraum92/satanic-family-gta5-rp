@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satanic Family | GTA 5 RP</title>
+
+    <!-- Подключение шрифта -->
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap" rel="stylesheet" />
+
+    <!-- Стили -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+
+    <!-- Навигация -->
+    <nav>
+      <ul>
+        <li><a href="#home">Главная</a></li>
+        <li><a href="#values">Ценности</a></li>
+        <li><a href="#requirements">Требования</a></li>
+        <li><a href="#apply">Подать заявку</a></li>
+        <li><a href="https://discord.gg/satanicfamq" target="_blank">Discord</a></li>
+      </ul>
+    </nav>
+
+    <!-- Главный блок -->
+    <section id="home">
+      <h1>Satanic Family</h1>
+      <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.2rem;">
+        Семья, основанная недавно, но быстро развивающаяся. Мы стремимся создать дружный, адекватный коллектив, где каждый может найти своё место.
+      </p>
+    </section>
+
+    <!-- Ценности -->
+    <section id="values">
+      <h2>Ценности семьи</h2>
+      <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+        Доброта, отсутствие конфликтов, решение проблем через лидеров и департаменты, разделение на фарм и тул отделы.
+      </p>
+    </section>
+
+    <!-- Требования -->
+    <section id="requirements">
+      <h2>Требования</h2>
+      <ul style="text-align: center; list-style: none; padding: 0;">
+        <li>Возраст от 16 лет</li>
+        <li>Адекватность</li>
+        <li>Минимальное понимание игры</li>
+      </ul>
+    </section>
+
+    <!-- Форма подачи заявки -->
+    <section id="apply">
+      <h2>Подать заявку</h2>
+      <form action="submit_form.php" method="POST">
+        <label for="department">Выберите отдел:</label>
+        <select id="department" name="department" required>
+          <option value="">--Выберите--</option>
+          <option value="farm">Фарм</option>
+          <option value="tool">Тул</option>
+        </select>
+
+        <label for="video">Ссылка на откат (для Тула):</label>
+        <input type="url" id="video" name="video">
+
+        <label for="realname">Реальное имя:</label>
+        <input type="text" id="realname" name="realname" required>
+
+        <label for="nickname">Игровой ник:</label>
+        <input type="text" id="nickname" name="nickname" required>
+
+        <label for="age">Возраст:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="timezone">Часовой пояс:</label>
+        <input type="text" id="timezone" name="timezone" required>
+
+        <label for="experience">Опыт игры в RP:</label>
+        <textarea id="experience" name="experience" rows="3" required></textarea>
+
+        <label for="families">В каких семьях был:</label>
+        <textarea id="families" name="families" rows="2"></textarea>
+
+        <label for="discord">Discord для связи:</label>
+        <input type="text" id="discord" name="discord" required>
+
+        <button type="submit">Отправить</button>
+      </form>
+    </section>
+
+    <!-- Участники -->
+    <section id="members">
+      <h2>Участники</h2>
+      <div class="member-list">
+        <div class="member">
+          <h3>Owner</h3>
+          <p>Nanami</p>
+        </div>
+        <div class="member">
+          <h3>Leader</h3>
+          <p>Eva</p>
+          <p>akxra</p>
+          <p>anatadake</p>
+        </div>
+        <div class="member">
+          <h3>Dep.Leader</h3>
+          <p>Arise</p>
+          <p>Yasmi</p>
+          <p>Shean</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Эффект лилий -->
+    <script>
+      document.addEventListener("mousemove", function (e) {
+        const lily = document.createElement("div");
+        lily.className = "lily";
+        lily.style.left = e.pageX + "px";
+        lily.style.top = e.pageY + "px";
+        document.body.appendChild(lily);
+        setTimeout(() => lily.remove(), 1000);
+      });
+    </script>
+
+  </body>
+</html>
